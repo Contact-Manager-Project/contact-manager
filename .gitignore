@@ -1,0 +1,8 @@
+# Intellij
+.idea
+*.iml
+
+out
+
+# MAC
+**/.DS_Store
