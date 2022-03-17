@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,16 +24,58 @@ public class contactInfo {
 
     }
 
+    public static List<String> readFile(Path contactFile) {
+        List<String> contactStrings = new ArrayList<>();
+        try {
+            contactStrings = Files.readAllLines(contactFile);
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+        return contactStrings;
+    }
+//    private void addNewContact() {
+//        Files.write(contactFile, contact, StandardOpenOption.APPEND);
+//        contact = Files.readAllLines(contactFile);
+//        System.out.printf("Name | PhoneNumber\n ----------\n %s", contact);
+//    }
+
+    private static void showContacts() {
+
+    }
+
+    public static List<Contact> stringToObject(List<String> contactStrings) {
+        List<Contact> createdObject = new ArrayList<>();
+
+        for (int i = 0; i < contactStrings.size(); i++) {
+          String[] resultOfSplittingStrings =  contactStrings.get(i).split("\\| ");
+            System.out.println(resultOfSplittingStrings);
+            System.out.println(resultOfSplittingStrings[0]);
+            System.out.println(resultOfSplittingStrings[1]);
+
+            Contact contactInfo = new Contact(resultOfSplittingStrings[0], resultOfSplittingStrings[1]);
+            createdObject.add(contactInfo);
+        }
+        return createdObject;
+    }
+
     public static void main(String[] args) {
         printMenu();
+//        addNewContact();
+        showContacts();
+
+        String directory = "contactBook";
+        String filename = "contacts.txt";
+        Path contactDirectory = Paths.get(directory);
+        Path contactFile = Paths.get(directory, filename);
+        List<String> info = readFile(contactFile);
+        System.out.println(stringToObject(info));
+        System.out.println(info);
 
         try{
 
-            String directory = "contactBook";
-            String filename = "contacts.txt";
 
-            Path contactDirectory = Paths.get(directory);
-            Path contactFile = Paths.get(directory, filename);
+
+
 
             if (Files.notExists(contactDirectory)){
                 Files.createDirectories(contactDirectory);
@@ -47,12 +90,13 @@ public class contactInfo {
 
             do {
                 if (input.nextInt() == 1){
-                    contact = Files.readAllLines(contactFile);
-                    System.out.printf("Name | PhoneNumber\n ----------\n %s", contact);
-                } else if (input.nextInt() == 5){
-                    break;
+
+
                 }
-            }while (true);
+                if (input.nextInt() == 2) {
+//addNewContact();
+                }
+            }while (input.nextInt() != 5);
 
 
         } catch (IOException e) {
@@ -60,5 +104,7 @@ public class contactInfo {
         }
 
     }
+
+
 
 }
