@@ -33,11 +33,6 @@ public class contactInfo {
         }
         return contactStrings;
     }
-//    private void addNewContact() {
-//        Files.write(contactFile, contact, StandardOpenOption.APPEND);
-//        contact = Files.readAllLines(contactFile);
-//        System.out.printf("Name | PhoneNumber\n ----------\n %s", contact);
-//    }
 
     private static void showContacts(List<String> info) {
         System.out.println("Name | Phonenumber");
@@ -74,9 +69,12 @@ public class contactInfo {
         return contactList;
     }
 
+    public static List<Contact> searchContact() {
+
+    }
+
     public static void main(String[] args) {
         printMenu();
-//        addNewContact();
 
         String directory = "contactBook";
         String filename = "contacts.txt";
@@ -86,11 +84,9 @@ public class contactInfo {
         List<Contact> contactList = stringToObject(info);
 
         try{
-
             if (Files.notExists(contactDirectory)){
                 Files.createDirectories(contactDirectory);
             }
-
             if (Files.notExists(contactFile)){
                 Files.createFile(contactFile);
             }
@@ -106,6 +102,7 @@ public class contactInfo {
                 }
                 if (inputString.equals("2")) {
                     contactList = addContact(contactList);
+//                    Files.write(contactFile, contactList, StandardOpenOption.APPEND);
                 }
                 if (inputString.equals("3")){
 
@@ -118,13 +115,10 @@ public class contactInfo {
                 }
             }while (!inputString.equals("5"));
 
-
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
-
 
 }
