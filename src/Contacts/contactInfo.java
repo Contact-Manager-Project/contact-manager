@@ -57,20 +57,29 @@ public class contactInfo {
         return createdObject;
     }
 
-    public static List<Contact> addContact(List<Contact> contactList) {
+    public static String addContact() {
         Scanner firstInput = new Scanner(System.in);
         Scanner secondInput = new Scanner(System.in);
         System.out.println("Please enter in a name: ");
         String name = firstInput.nextLine();
         System.out.println("Please enter in a phone number: ");
-        String phoneNumber = secondInput.nextLine();
+        String phoneNumber = secondInput.next();
         Contact newContact = new Contact(name, phoneNumber);
-        contactList.add(newContact);
-        return contactList;
+        return newContact.toString();
     }
 
     public static List<Contact> searchContact() {
+        String searching = input.nextLine();
+        for (int i = 0; i < ; i++) {
+            
+        }
+        return null;
+    }
 
+    public static List<Contact> deleteContact() {
+        String answer = input.nextLine();
+
+        return null;
     }
 
     public static void main(String[] args) {
@@ -81,7 +90,6 @@ public class contactInfo {
         Path contactDirectory = Paths.get(directory);
         Path contactFile = Paths.get(directory, filename);
         List<String> info = readFile(contactFile);
-        List<Contact> contactList = stringToObject(info);
 
         try{
             if (Files.notExists(contactDirectory)){
@@ -98,11 +106,13 @@ public class contactInfo {
             do {
                 inputString = input.nextLine();
                 if (inputString.equals("1")){
+                    info = readFile(contactFile);
                     showContacts(info);
                 }
                 if (inputString.equals("2")) {
-                    contactList = addContact(contactList);
-//                    Files.write(contactFile, contactList, StandardOpenOption.APPEND);
+                    String contactToAdd = addContact();
+                    Files.write(contactFile, Arrays.asList(contactToAdd), StandardOpenOption.APPEND);
+                    System.out.println("New contact added.");
                 }
                 if (inputString.equals("3")){
 
@@ -111,7 +121,7 @@ public class contactInfo {
 
                 }
                 if (inputString.equals("5")){
-                    System.out.println("Good Bye!");
+                    System.out.println("Have a nice day!");
                 }
             }while (!inputString.equals("5"));
 

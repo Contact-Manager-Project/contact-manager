@@ -27,5 +27,8 @@ public class Contact {
         this.phoneNumbers = phoneNumbers;
     }
 
-
+    @Override
+    public String toString() {
+        return contacts + " | " + phoneNumbers;
+    }
 }
