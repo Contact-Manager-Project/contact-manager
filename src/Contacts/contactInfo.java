@@ -68,18 +68,28 @@ public class contactInfo {
         return newContact.toString();
     }
 
-    public static List<Contact> searchContact() {
-        String searching = input.nextLine();
-        for (int i = 0; i < ; i++) {
-            
+    public static void searchContact(List<String> info) {
+        System.out.println("Please enter  a name: ");
+        String searcher = input.nextLine();
+        for (int i = 0; i < info.size(); i++) {
+            if (info.get(i).equalsIgnoreCase(searcher)){
+                System.out.println(info.get(i));
+            }
         }
-        return null;
     }
 
-    public static List<Contact> deleteContact() {
-        String answer = input.nextLine();
-
-        return null;
+    public static void deleteContact(List<String> info, Path file) throws IOException {
+        List<String> newList = new ArrayList<>();
+        System.out.println("Please enter a name: ");
+        String searcher = input.nextLine();
+        for (int i = 0; i < info.size(); i++) {
+            if (info.get(i).contains(searcher)){
+                System.out.println(info.get(i) + " has been deleted.");
+                continue;
+            }
+            newList.add(info.get(i));
+        }
+        Files.write(file, newList);
     }
 
     public static void main(String[] args) {
@@ -115,10 +125,12 @@ public class contactInfo {
                     System.out.println("New contact added.");
                 }
                 if (inputString.equals("3")){
-
+                    info = readFile(contactFile);
+                    searchContact(info);
                 }
                 if (inputString.equals("4")){
-
+                    info = readFile(contactFile);
+                    deleteContact(info, contactFile);
                 }
                 if (inputString.equals("5")){
                     System.out.println("Have a nice day!");
